@@ -1,0 +1,64 @@
+databaseChangeLog:
+  - changeSet:
+      id: ticket_table
+      author: k.gorecki
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: ticket_pkey
+                  name: id
+                  type: bigint
+              - column:
+                  name: client_age
+                  type: int
+              - column:
+                  name: client_type
+                  type: VARCHAR(255)
+              - column:
+                  name: movie_name
+                  type: VARCHAR(255)
+              - column:
+                  name: price
+                  type: DOUBLE
+            tableName: TICKETS
+  - changeSet:
+      id: movies_table
+      author: k.gorecki
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: price
+                  type: DOUBLE
+            tableName: MOVIES
+        - loadData:
+            catalogName: cat
+            columns:
+              - column:
+                  name: id
+                  type: NUMERIC
+              - column:
+                  name: name
+                  type: STRING
+              - column:
+                  name: price
+                  type: NUMERIC
+            commentLineStartsWith: //
+            encoding: UTF-8
+            file: movies.csv
+            quotchar: ''''
+            relativeToChangelogFile: true
+            schemaName: public
+            separator: ;
+            tableName: MOVIES
+            usePreparedStatements: true
